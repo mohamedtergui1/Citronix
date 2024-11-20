@@ -22,7 +22,7 @@ public class FarmSearchImpl  implements FarmSearchRepository{
     @Override
     public List<Farm> searchFarm(String name, String location , LocalDate date) {
 
-            // Create a CriteriaBuilder from the entity manager
+
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Farm> criteriaQuery = criteriaBuilder.createQuery(Farm.class);
 
@@ -57,7 +57,7 @@ public class FarmSearchImpl  implements FarmSearchRepository{
             }
 
             // Combine all predicates with AND
-            criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
+            criteriaQuery.where(criteriaBuilder.or(predicates.toArray(new Predicate[0])));
 
 
             TypedQuery<Farm> query = entityManager.createQuery(criteriaQuery);

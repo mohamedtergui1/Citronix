@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record FieldRequest(
    @NotNull Long farmId,
-  @NotNull @Min(1) double area)  {
+   @Min(1000) double area
+)  {
 
 }

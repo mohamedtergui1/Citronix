@@ -16,9 +16,7 @@ public record FarmRequest (
         @Min(1)
         @Max(Long.MAX_VALUE)
         double area
-        ,
-        @NotNull
-        Long farmId
+
 ) {
 
 

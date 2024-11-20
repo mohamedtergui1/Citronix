@@ -25,6 +25,16 @@ public class ExceptionHandlerUtil {
         ), HttpStatus.NOT_FOUND);
 
     }
+    @ExceptionHandler(NotCompleteProcess.class)
+    public ResponseEntity<Map<String, Object>> handler(NotCompleteProcess ex, HttpServletRequest request) {
+
+        return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND.value(),
+                request.getRequestURI()
+        ), HttpStatus.NOT_FOUND);
+
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handler(MethodArgumentNotValidException ex, HttpServletRequest request) {
@@ -32,7 +42,7 @@ public class ExceptionHandlerUtil {
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value(), request.getRequestURI(), validationErrors), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse("validation errors", HttpStatus.BAD_REQUEST.value(), request.getRequestURI(), validationErrors), HttpStatus.BAD_REQUEST);
     }
 
 }

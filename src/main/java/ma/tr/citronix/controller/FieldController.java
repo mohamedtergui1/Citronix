@@ -32,7 +32,7 @@ public class FieldController {
 
     @PostMapping
     public ResponseEntity<FieldResponse> createField(@RequestBody @Valid FieldRequest fieldRequest) {
-        return new ResponseEntity<>(fieldMapper.toFieldResponse(fieldService.addField(fieldMapper.toField(fieldRequest))), HttpStatus.CREATED);
+        return new ResponseEntity<>(fieldMapper.toFieldResponse(fieldService.createField(fieldMapper.toField(fieldRequest))), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

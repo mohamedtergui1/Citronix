@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,14 +34,14 @@ public class Farm {
     private double area;
 
     @Column(nullable = false)
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
 
     @OneToMany(mappedBy = "farm")
     List<Field> fields;
 
     @PrePersist
     public void prePrsist(){
-        creationDate = LocalDateTime.now();
+        creationDate = LocalDate.now();
     }
 
 }

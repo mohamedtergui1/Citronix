@@ -53,7 +53,7 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     @Transactional
-    public Field addField(Field field) {
+    public Field createField(Field field) {
 
         Farm farm = farmRepository.findById(field.getFarm().getId()).orElseThrow(() -> new NotCompleteProcess("Farm not found"));
         if (fieldRepository.getCountByFarmId(field.getId()) >= 10) {

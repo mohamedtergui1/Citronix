@@ -19,6 +19,8 @@ public class FarmSearchImpl  implements FarmSearchRepository{
 
     @PersistenceContext
     EntityManager entityManager;
+
+
     @Override
     public List<Farm> searchFarm(String name, String location , LocalDate date) {
 

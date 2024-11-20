@@ -49,7 +49,7 @@ public class FarmServiceImpl implements FarmService {
 
     @Override
     @Transactional
-    public Farm addFarm(Farm farm) {
+    public Farm createFarm(Farm farm) {
         return farmRepository.save(farm);
     }
 

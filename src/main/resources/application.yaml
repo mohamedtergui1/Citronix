@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: Citronix
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/Citronix
+    username: myuser
+    password: mypassword
+
+  jpa:
+    hibernate:
+      show_sql: true
+      format_sql: true
+      generate_statistics: true
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+        hibernate:
+          log_sql: true
+          jdbc_time_zone: UTC
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+

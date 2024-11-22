@@ -37,7 +37,7 @@ public class TreeController implements BaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TreeResponse> updateTree(@PathVariable Long id,@RequestBody @Valid  TreeRequest treeRequest) {
+    public ResponseEntity<TreeResponse> updateTree(@PathVariable Long id,@RequestBody @Valid TreeRequest treeRequest) {
         return responseEntity(toTreeResponse(treeService.updateTree(id, toTree(treeRequest))), HttpStatus.OK);
     }
 

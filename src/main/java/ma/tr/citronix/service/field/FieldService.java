@@ -12,7 +12,7 @@ public interface FieldService {
 
     void deleteFieldById(Long id);
 
-    Field addField(Field farm);
+    Field createField(Field farm);
 
     Field updateField(Long id , FieldRequest farmRequest);
 }

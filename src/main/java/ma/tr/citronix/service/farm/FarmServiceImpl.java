@@ -2,14 +2,19 @@ package ma.tr.citronix.service.farm;
 
 import lombok.RequiredArgsConstructor;
 import ma.tr.citronix.dto.farm.FarmRequest;
+import ma.tr.citronix.dto.farm.FarmResponse;
 import ma.tr.citronix.entity.Farm;
 import ma.tr.citronix.exception.NotCompleteProcess;
 import ma.tr.citronix.exception.NotFoundException;
 import ma.tr.citronix.mapper.FarmMapper;
 import ma.tr.citronix.repository.FarmRepository;
+import ma.tr.citronix.repository.FarmSearchRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,7 +24,7 @@ public class FarmServiceImpl implements FarmService {
 
     private final FarmRepository farmRepository;
     private final FarmMapper farmMapper;
-
+    private final FarmSearchRepository farmSearchRepository;
     @Override
     @Transactional(readOnly = true)
     public List<Farm> getAllFarms() {
@@ -44,7 +49,7 @@ public class FarmServiceImpl implements FarmService {
 
     @Override
     @Transactional
-    public Farm addFarm(Farm farm) {
+    public Farm createFarm(Farm farm) {
         return farmRepository.save(farm);
     }
 
@@ -56,5 +61,12 @@ public class FarmServiceImpl implements FarmService {
         newFarm.setId(id);
         newFarm.setCreationDate(existingFarm.getCreationDate());
         return farmRepository.save(newFarm);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Farm> search(String name, String localisation, LocalDate date) {
+
+        return farmSearchRepository.searchFarm(name, localisation, date);
     }
 }

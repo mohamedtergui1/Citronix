@@ -30,9 +30,9 @@ public class ExceptionHandlerUtil {
 
         return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse(
                 ex.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 request.getRequestURI()
-        ), HttpStatus.NOT_FOUND);
+        ), HttpStatus.BAD_REQUEST);
 
     }
 

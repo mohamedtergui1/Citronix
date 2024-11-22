@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ma.tr.citronix.enums.Season;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -13,19 +15,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "fields")
-public class Field {
+@Table(name = "harvets")
+public class Harvest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
-    private double area;
+    private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "farm_id")
-    Farm farm;
+    private Double quantity;
 
-    @OneToMany(mappedBy = "field")
-    List<Tree> trees;
+    @Enumerated(EnumType.STRING)
+    private Season season;
+
+    @OneToMany(mappedBy = "harvest")
+    private List<Sale> sales;
+
 }

@@ -1,7 +1,6 @@
 package ma.tr.citronix.service.tree;
 
 import lombok.RequiredArgsConstructor;
-import ma.tr.citronix.dto.tree.TreeRequest;
 import ma.tr.citronix.entity.Field;
 import ma.tr.citronix.entity.Tree;
 import ma.tr.citronix.exception.NotCompleteProcess;
@@ -48,7 +47,7 @@ public class TreeServiceImpl implements TreeService {
     }
 
     @Override
-    public Tree updateTree(Long id, TreeRequest treeRequest) {
+    public Tree updateTree(Long id, Tree tree) {
         if (!treeRepository.existsById(id)) {
             throw new NotCompleteProcess("Tree not found");
         }

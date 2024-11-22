@@ -14,5 +14,5 @@ public interface TreeService {
 
     Tree createTree(Tree tree);
 
-    Tree updateTree(Long id , TreeRequest treeRequest);
+    Tree updateTree(Long id , Tree tree);
 }

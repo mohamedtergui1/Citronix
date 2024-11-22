@@ -8,11 +8,12 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "tree")
 public class Tree {
 
     @Id
@@ -25,4 +26,5 @@ public class Tree {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     Field field;
+
 }

@@ -67,8 +67,7 @@ public class FarmController {
     public ResponseEntity<List<FarmResponse>> searchFarms(
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-            @RequestParam(defaultValue = "") String localisation,
-            @RequestParam(defaultValue = "0") double area
+            @RequestParam(defaultValue = "") String localisation
     ){
             return new ResponseEntity<>(farmService.search(name, localisation, date).stream().map(farmMapper::toResponse).toList(), HttpStatus.OK) ;
     }

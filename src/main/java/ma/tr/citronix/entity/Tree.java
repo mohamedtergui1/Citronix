@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,5 +27,14 @@ public class Tree {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     Field field;
+
+
+    public int calculateAge() {
+        if (plantation == null) {
+            return 0;
+        }
+        return Period.between(plantation, LocalDate.now()).getYears();
+    }
+
 
 }

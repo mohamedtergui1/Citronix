@@ -1,24 +1,30 @@
 package ma.tr.citronix.dto.tree;
 
+
+import lombok.Getter;
+
 import ma.tr.citronix.dto.field.FieldResponse;
 import java.time.LocalDate;
 import java.time.Period;
 
-public record TreeResponse(
-        Long id,
-        LocalDate plantation,
-        FieldResponse field,
-        int age
-) {
-    public TreeResponse(Long id, LocalDate plantation, FieldResponse field) {
-        this(id, plantation, field, calculateAge(plantation));
+@Getter
+public class TreeResponse{
+    private Long id;
+    private LocalDate plantationDate;
+    private FieldResponse field;
+    private int age;
+    public TreeResponse(Long id, LocalDate plantationDate, FieldResponse field) {
+        this.age =  calculateAge(plantationDate);
+        this.id = id;
+        this.plantationDate = plantationDate;
+        this.field = field;
     }
 
-    private static int calculateAge(LocalDate plantation) {
-
-        if (plantation == null) {
+    private static int calculateAge(LocalDate plantationDate) {
+        if (plantationDate == null) {
             return 0;
         }
-        return Period.between(plantation, LocalDate.now()).getYears();
+        return Period.between(plantationDate, LocalDate.now()).getYears();
     }
 }
+

@@ -19,34 +19,32 @@ import java.util.List;
 public class TreeController implements BaseController {
 
     private final TreeService treeService;
-    private final TreeMapper treeMapper;
+
 
     @GetMapping
     public ResponseEntity<List<TreeResponse>> getTrees() {
-        return responseEntity(treeService.getAllTrees().stream().map(this::toTreeResponse).toList(), HttpStatus.OK);
+        return responseEntity(treeService.getAllTrees(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TreeResponse> getTree(@PathVariable Long id) {
-        return responseEntity(toTreeResponse(treeService.getTreeById(id)), HttpStatus.OK);
+        return responseEntity(treeService.getTreeById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<TreeResponse> createTree(@RequestBody @Valid TreeRequest treeRequest) {
-        return responseEntity(toTreeResponse(treeService.createTree(toTree(treeRequest))), HttpStatus.OK);
+        return responseEntity(treeService.createTree(treeRequest), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TreeResponse> updateTree(@PathVariable Long id,@RequestBody @Valid TreeRequest treeRequest) {
-        return responseEntity(toTreeResponse(treeService.updateTree(id, toTree(treeRequest))), HttpStatus.OK);
+    public ResponseEntity<TreeResponse> updateTree(@PathVariable Long id, @RequestBody @Valid TreeRequest treeRequest) {
+        return responseEntity(treeService.updateTree(id, treeRequest), HttpStatus.OK);
     }
 
-    private TreeResponse toTreeResponse(Tree tree) {
-        return treeMapper.toTreeRequest(tree);
-    }
-
-    private Tree toTree(TreeRequest treeRequest) {
-        return treeMapper.toTree(treeRequest);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTree(@PathVariable Long id) {
+        treeService.deleteTreeById(id);
+        return new ResponseEntity<>("Tree deleted", HttpStatus.OK);
     }
 
 }

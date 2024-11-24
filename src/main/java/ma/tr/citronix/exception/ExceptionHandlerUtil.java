@@ -25,8 +25,8 @@ public class ExceptionHandlerUtil {
         ), HttpStatus.NOT_FOUND);
 
     }
-    @ExceptionHandler(NotCompleteProcess.class)
-    public ResponseEntity<Map<String, Object>> handler(NotCompleteProcess ex, HttpServletRequest request) {
+    @ExceptionHandler(ProcessNotCompleted.class)
+    public ResponseEntity<Map<String, Object>> handler(ProcessNotCompleted ex, HttpServletRequest request) {
 
         return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse(
                 ex.getMessage(),

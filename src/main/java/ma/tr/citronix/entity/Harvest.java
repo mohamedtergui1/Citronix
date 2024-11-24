@@ -32,4 +32,8 @@ public class Harvest {
     @OneToMany(mappedBy = "harvest")
     private List<Sale> sales;
 
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Field field;
+
 }

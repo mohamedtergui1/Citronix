@@ -1,14 +1,12 @@
 package ma.tr.citronix.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class HarvestDetails {
@@ -23,4 +21,6 @@ public class HarvestDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "harvest_id")
     private Harvest harvest;
+
+    private double quantity;
 }

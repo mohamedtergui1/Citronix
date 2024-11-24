@@ -39,9 +39,5 @@ public class Farm {
     @OneToMany(mappedBy = "farm")
     List<Field> fields;
 
-    @PrePersist
-    public void prePrsist(){
-        creationDate = LocalDate.now();
-    }
 
 }

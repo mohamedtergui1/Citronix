@@ -32,7 +32,7 @@ public class Harvest {
     @OneToMany(mappedBy = "harvest")
     private List<Sale> sales;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     private Field field;
 

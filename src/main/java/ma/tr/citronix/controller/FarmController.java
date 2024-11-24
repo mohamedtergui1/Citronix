@@ -19,21 +19,17 @@ import java.util.List;
 @RestController
 public class FarmController {
     private final FarmService farmService;
-    private final FarmMapper farmMapper;
 
     @GetMapping
     public ResponseEntity<List<FarmResponse>> getAllFarms() {
-        List<FarmResponse> farms = farmService.getAllFarms()
-                .stream()
-                .map(farmMapper::toResponse)
-                .toList();
+        List<FarmResponse> farms = farmService.getAllFarms();
         return ResponseEntity.ok(farms);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FarmResponse> getFarmById(@PathVariable Long id) {
         return ResponseEntity.ok(
-                farmMapper.toResponse(farmService.getFarmById(id))
+                farmService.getFarmById(id)
         );
     }
 
@@ -43,7 +39,7 @@ public class FarmController {
             @RequestBody @Valid FarmRequest farmRequest
     ) {
         return ResponseEntity.ok(
-                farmMapper.toResponse(farmService.updateFarm(id, farmRequest))
+                farmService.updateFarm(id, farmRequest)
         );
     }
 
@@ -52,9 +48,9 @@ public class FarmController {
             @RequestBody @Valid FarmRequest farmRequest
     ) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(farmMapper.toResponse(
-                        farmService.createFarm(farmMapper.toFarm(farmRequest))
-                ));
+                .body(
+                        farmService.createFarm(farmRequest)
+                );
     }
 
     @DeleteMapping("/{id}")
@@ -68,8 +64,8 @@ public class FarmController {
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
             @RequestParam(defaultValue = "") String localisation
-    ){
-            return new ResponseEntity<>(farmService.search(name, localisation, date).stream().map(farmMapper::toResponse).toList(), HttpStatus.OK) ;
+    ) {
+        return new ResponseEntity<>(farmService.search(name, localisation, date), HttpStatus.OK);
     }
 
 }

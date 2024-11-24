@@ -22,7 +22,7 @@ public class Tree {
     private Long id;
 
     @Column(nullable = false)
-    LocalDate plantation;
+    LocalDate plantationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
@@ -30,11 +30,29 @@ public class Tree {
 
 
     public int calculateAge() {
-        if (plantation == null) {
+        if (plantationDate == null) {
             return 0;
         }
-        return Period.between(plantation, LocalDate.now()).getYears();
+        return Period.between(plantationDate, LocalDate.now()).getYears();
     }
+
+    public double calculateProductivity() {
+        int age = calculateAge();
+
+        if (age > 20) {
+            return 0.0;
+        }
+
+        if (age < 3) {
+            return 2.5;
+        } else if (age <= 10) {
+            return 12.0;
+        } else {
+            return 20.0;
+        }
+    }
+
+
 
 
 }

@@ -1,18 +1,19 @@
 package ma.tr.citronix.service.tree;
 
 import ma.tr.citronix.dto.tree.TreeRequest;
+import ma.tr.citronix.dto.tree.TreeResponse;
 import ma.tr.citronix.entity.Tree;
 
 import java.util.List;
 
 public interface TreeService {
-    List<Tree> getAllTrees();
+    List<TreeResponse> getAllTrees();
 
-    Tree getTreeById(Long id);
+    TreeResponse getTreeById(Long id);
 
     void deleteTreeById(Long id);
 
-    Tree createTree(Tree tree);
+    TreeResponse createTree(TreeRequest treeRequest);
 
-    Tree updateTree(Long id , Tree tree);
+    TreeResponse updateTree(Long id , TreeRequest treeRequest);
 }

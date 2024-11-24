@@ -22,21 +22,26 @@ public class FieldController {
 
     @GetMapping
     public ResponseEntity<List<FieldResponse>> getAllFields() {
-        return new ResponseEntity<>(fieldService.getAllFields().stream().map(fieldMapper::toFieldResponse).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(fieldService.getAllFields(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FieldResponse> getFieldById(@PathVariable Long id) {
-        return new ResponseEntity<>(fieldMapper.toFieldResponse(fieldService.getFieldById(id)), HttpStatus.OK);
+        return new ResponseEntity<>(fieldService.getFieldById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<FieldResponse> createField(@RequestBody @Valid FieldRequest fieldRequest) {
-        return new ResponseEntity<>(fieldMapper.toFieldResponse(fieldService.createField(fieldMapper.toField(fieldRequest))), HttpStatus.CREATED);
+        return new ResponseEntity<>( fieldService.createField(fieldRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<FieldResponse> updateField(@PathVariable Long id, @RequestBody @Valid FieldRequest fieldRequest) {
-        return new ResponseEntity<>(fieldMapper.toFieldResponse(fieldService.updateField(id, fieldRequest)), HttpStatus.OK);
+        return new ResponseEntity<>( fieldService.updateField(id, fieldRequest), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteField(@PathVariable Long id) {
+        fieldService.deleteFieldById(id);
+        return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

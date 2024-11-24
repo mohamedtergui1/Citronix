@@ -11,5 +11,5 @@ public interface TreeMapper {
     @Mapping(source = "fieldId" , target = "field.id")
     Tree toTree(TreeRequest treeRequest);
 
-    TreeResponse toTreeRequest(Tree tree);
+    TreeResponse toTreeResponse(Tree tree);
 }

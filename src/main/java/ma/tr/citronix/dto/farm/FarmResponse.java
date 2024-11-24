@@ -1,6 +1,7 @@
 package ma.tr.citronix.dto.farm;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 
 public record FarmResponse(
@@ -8,5 +9,5 @@ public record FarmResponse(
         String name,
         String location,
         double area,
-        LocalDateTime creationDate
+        LocalDate creationDate
 ) {}

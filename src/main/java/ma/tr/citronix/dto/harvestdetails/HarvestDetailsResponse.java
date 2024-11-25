@@ -11,10 +11,9 @@ import ma.tr.citronix.dto.tree.TreeResponse;
 @Getter
 public class HarvestDetailsResponse {
     private Long id;
-
-    private TreeResponse tree;
-
-    private HarvestResponse harvest;
-
+    private Long treeId;
+    private Long fieldId;
+    private String farmName;
+    private Long harvestId;
     private double quantity;
 }

@@ -8,9 +8,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TreeMapper {
-    @Mapping(source = "fieldId" , target = "field.id")
+    @Mapping(source = "fieldId", target = "field.id")
     Tree toTree(TreeRequest treeRequest);
-    @Mapping(source = "field.farm.name" , target = "farmName" )
-    @Mapping(source = "field.id" , target = "fieldId" )
+
+    @Mapping(source = "field.farm.name", target = "farmName")
+    @Mapping(source = "field.id", target = "fieldId")
     TreeResponse toTreeResponse(Tree tree);
 }

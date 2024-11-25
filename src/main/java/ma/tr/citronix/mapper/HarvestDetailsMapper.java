@@ -7,6 +7,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface HarvestDetailsMapper {
-    @Mapping(source = "harvest.field", target = "harvest.field", ignore = true)
+    @Mapping(source = "harvest.field.farm.name", target = "farmName")
+    @Mapping(source = "tree.id", target = "treeId")
+    @Mapping(source = "tree.field.id", target = "fieldId")
+    @Mapping(source = "harvest.id", target = "harvestId")
     HarvestDetailsResponse toHarvestDetails(HarvestDetails harvestDetails);
 }

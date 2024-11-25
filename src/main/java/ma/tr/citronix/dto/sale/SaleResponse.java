@@ -10,7 +10,7 @@ public record SaleResponse(
         LocalDate date,
         double unitPrice,
         String client,
-        HarvestResponse harvest,
+        Long  harvestId,
         double quantity
 ) {
 }

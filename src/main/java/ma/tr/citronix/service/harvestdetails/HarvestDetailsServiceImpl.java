@@ -17,12 +17,12 @@ public class HarvestDetailsServiceImpl implements HarvestDetailsService {
     private final HarvestDetailsRepository harvestDetailsRepository;
     private final TreeRepository treeRepository;
     private final HarvestDetailsMapper harvestDetailsMapper;
+
     @Override
     public List<HarvestDetailsResponse> getHarvestDetailsBy(Long id) {
-        if(!treeRepository.existsById(id))
-        {
-            throw  new NotFoundException("three not found");
+        if (!treeRepository.existsById(id)) {
+            throw new NotFoundException("three not found");
         }
-        return harvestDetailsRepository.findByHarvestId(id).stream().map(harvestDetailsMapper::toHarvestDetails).toList();
+        return harvestDetailsRepository.findByTreeId(id).stream().map(harvestDetailsMapper::toHarvestDetails).toList();
     }
 }

@@ -10,5 +10,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HarvestDetailsRepository extends JpaRepository<HarvestDetails, Long> {
-    List<HarvestDetails> findByHarvestId(Long harvestId);
+    List<HarvestDetails> findByTreeId(Long harvestId);
 }

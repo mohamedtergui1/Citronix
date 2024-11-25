@@ -49,15 +49,17 @@ class FarmServiceImplTest {
         testDate = LocalDate.now();
 
 
-        farm = new Farm();
-        farm.setId(1L);
-        farm.setName("Test Farm");
-        farm.setLocation("Test Location");
-        farm.setArea(100.0);
-        farm.setCreationDate(testDate);
-        farm.setFields(new ArrayList<>());
+        farm = Farm.builder()
+                .id(1L)
+                .name("Test Farm")
+                .location("Test Location")
+                .area(100.0)
+                .creationDate(testDate)
+                .fields(new ArrayList<>())
+                .build();
 
-        // Setup test DTOs
+
+
         farmRequest = new FarmRequest("Test Farm", "Test Location", 100.0, testDate);
         farmResponse = new FarmResponse(1L, "Test Farm", "Test Location", 100.0, testDate);
     }
@@ -162,12 +164,13 @@ class FarmServiceImplTest {
     @Test
     void updateFarm_WhenFarmExists_ShouldReturnUpdatedFarmResponse() {
         Long id = 1L;
-        Farm updatedFarm = new Farm();
-        updatedFarm.setId(id);
-        updatedFarm.setName("Updated Farm");
-        updatedFarm.setLocation("Updated Location");
-        updatedFarm.setArea(200.0);
-        updatedFarm.setCreationDate(testDate);
+        Farm updatedFarm = Farm.builder()
+                .id(id)
+                .name("Updated Farm")
+                .location("Updated Location")
+                .area(200.0)
+                .creationDate(testDate)
+                .build();
 
         FarmRequest updateRequest = new FarmRequest("Updated Farm", "Updated Location", 200.0, testDate);
         FarmResponse updatedResponse = new FarmResponse(id, "Updated Farm", "Updated Location", 200.0, testDate);

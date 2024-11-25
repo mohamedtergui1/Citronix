@@ -9,13 +9,13 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import ma.tr.citronix.entity.Farm;
 import ma.tr.citronix.repository.FarmSearchRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+@Repository
 public class FarmSearchImpl  implements FarmSearchRepository {
 
     @PersistenceContext

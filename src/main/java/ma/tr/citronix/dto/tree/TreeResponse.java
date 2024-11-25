@@ -4,17 +4,19 @@ package ma.tr.citronix.dto.tree;
 import lombok.Getter;
 
 import ma.tr.citronix.dto.field.FieldResponse;
+
 import java.time.LocalDate;
 import java.time.Period;
 
 @Getter
-public class TreeResponse{
+public class TreeResponse {
     private Long id;
     private LocalDate plantationDate;
     private FieldResponse field;
     private int age;
+
     public TreeResponse(Long id, LocalDate plantationDate, FieldResponse field) {
-        this.age =  calculateAge(plantationDate);
+        this.age = calculateAge(plantationDate);
         this.id = id;
         this.plantationDate = plantationDate;
         this.field = field;

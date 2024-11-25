@@ -18,10 +18,10 @@ public record FarmRequest (
         @NotNull
         @Min(2000)
         double area,
+
         @NotNull
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate creationDate
-
 ) {
 
 

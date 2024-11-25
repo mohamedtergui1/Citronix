@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface TreeMapper {
     @Mapping(source = "fieldId" , target = "field.id")
     Tree toTree(TreeRequest treeRequest);
-
+    @Mapping(source = "field.farm.name" , target = "farmName" )
+    @Mapping(source = "field.id" , target = "fieldId" )
     TreeResponse toTreeResponse(Tree tree);
 }

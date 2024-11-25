@@ -12,14 +12,16 @@ import java.time.Period;
 public class TreeResponse {
     private Long id;
     private LocalDate plantationDate;
-    private FieldResponse field;
+    private String farmName;
+    private Long fieldId;
     private int age;
 
-    public TreeResponse(Long id, LocalDate plantationDate, FieldResponse field) {
+    public TreeResponse(Long id, LocalDate plantationDate , String farmName , Long fieldId) {
         this.age = calculateAge(plantationDate);
         this.id = id;
         this.plantationDate = plantationDate;
-        this.field = field;
+        this.farmName = farmName;
+        this.fieldId = fieldId;
     }
 
     private static int calculateAge(LocalDate plantationDate) {

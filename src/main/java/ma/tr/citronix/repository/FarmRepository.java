@@ -11,8 +11,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
+
 public interface FarmRepository extends JpaRepository<Farm, Long> {
-    List<Farm> findByLocationContainingIgnoreCaseOrNameContainingIgnoreCase(String location, String name);
-    List<Farm> findAllByLocationContainingIgnoreCaseOrNameContainingIgnoreCaseAndCreationDate(String location, String name, LocalDateTime creationDate);
+//    List<Farm> findByLocationContainingIgnoreCaseOrNameContainingIgnoreCase(String location, String name);
+//    List<Farm> findAllByLocationContainingIgnoreCaseOrNameContainingIgnoreCaseAndCreationDate(String location, String name, LocalDateTime creationDate);
 }

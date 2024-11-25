@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+
 public interface SaleRepository extends JpaRepository<Sale, Long> {
     @Query("SELECT SUM(s.quantity) from Sale s where s.harvest.id= :harvestId")
     Optional<Double> sumSalesQuantityByHarvestId(Long harvestId);

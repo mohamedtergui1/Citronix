@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public interface HarvestDetailsRepository extends JpaRepository<HarvestDetails, Integer> {
-
+public interface HarvestDetailsRepository extends JpaRepository<HarvestDetails, Long> {
+    List<HarvestDetails> findByHarvestId(Long harvestId);
 }

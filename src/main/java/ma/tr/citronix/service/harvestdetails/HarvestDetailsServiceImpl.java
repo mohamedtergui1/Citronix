@@ -18,7 +18,7 @@ public class HarvestDetailsServiceImpl implements HarvestDetailsService {
     private final TreeRepository treeRepository;
     private final HarvestDetailsMapper harvestDetailsMapper;
     @Override
-    public List<HarvestDetailsResponse> getHarvestDetailsBy(Long id) {
+    public List<HarvestDetailsResponse> getHarvestDetailsByTreeId(Long id) {
         if(!treeRepository.existsById(id))
         {
             throw  new NotFoundException("three not found");

@@ -13,6 +13,9 @@ import ma.tr.citronix.dto.farm.*;
 import ma.tr.citronix.repository.FarmSearchRepository;
 import ma.tr.citronix.repository.FarmRepository;
 import ma.tr.citronix.mapper.FarmMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -66,20 +69,31 @@ class FarmServiceImplTest {
     @Test
     void getAllFarms_ShouldReturnListOfFarmResponses() {
 
+        // Mock data
+        Farm farm = new Farm(); // Assuming a valid Farm object
+
         List<Farm> farms = List.of(farm);
-        when(farmRepository.findAll()).thenReturn(farms);
+
+
+        Page<Farm> pagedFarms = new PageImpl<>(farms);
+
+
+        when(farmRepository.findAll(any(Pageable.class))).thenReturn(pagedFarms);
         when(farmMapper.toResponse(any(Farm.class))).thenReturn(farmResponse);
 
 
-        List<FarmResponse> result = farmService.getAllFarms();
+        Page<FarmResponse> result = farmService.getAllFarms(1, 10);
 
 
         assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(farmResponse, result.get(0));
-        verify(farmRepository).findAll();
+        assertEquals(1, result.getTotalElements());
+        assertEquals(farmResponse, result.getContent().get(0));
+
+
+        verify(farmRepository).findAll(any(Pageable.class));
         verify(farmMapper).toResponse(farm);
     }
+
 
     @Test
     void getFarmById_WhenFarmExists_ShouldReturnFarmResponse() {

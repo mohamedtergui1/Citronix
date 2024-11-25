@@ -14,7 +14,7 @@ public class HarvestDetailsResponse {
 
     private TreeResponse tree;
 
-    private HarvestResponse harvest;
-
     private double quantity;
+
+    private double quantityTotalOfHarvests;
 }

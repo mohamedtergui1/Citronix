@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface HarvestMapper {
-     @Mapping(source = "fieldId",target = "field.id")
+
     Harvest toHarvest(HarvestRequest harvest);
 
     HarvestResponse toHarvestResponse(Harvest harvest);

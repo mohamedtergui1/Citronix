@@ -8,6 +8,5 @@ import java.time.LocalDate;
 public record HarvestResponse(
         LocalDate date,
         Season season,
-        FieldResponse field,
         Double quantity) {
 }

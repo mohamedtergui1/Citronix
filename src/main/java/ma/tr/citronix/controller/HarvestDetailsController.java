@@ -21,6 +21,6 @@ public class HarvestDetailsController {
 
     @GetMapping("/{id}")
     private ResponseEntity<List<HarvestDetailsResponse>> getHarvestDetailsByTreeId(@PathVariable Long id) {
-        return new ResponseEntity<>(harvestDetailsService.getHarvestDetailsBy(id), HttpStatus.OK);
+        return new ResponseEntity<>(harvestDetailsService.getHarvestDetailsByTreeId(id), HttpStatus.OK);
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-
 @Getter
 public class HarvestRequest {
     @NotNull
@@ -28,5 +27,4 @@ public class HarvestRequest {
         this.fieldId = fieldId;
         this.season = Season.valueOf(seasonStr);
         this.seasonStr = seasonStr;
-    }
-}
+    }}

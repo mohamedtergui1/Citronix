@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
     private double area;
 
@@ -23,4 +26,9 @@ public class Field {
     @JoinColumn(name = "farm_id")
     Farm farm;
 
+    @OneToMany(mappedBy = "field")
+    List<Tree> trees;
+
+    @OneToMany(mappedBy = "field")
+    List<Harvest> harvests;
 }

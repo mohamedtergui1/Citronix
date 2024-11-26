@@ -4,17 +4,15 @@ import lombok.RequiredArgsConstructor;
 import ma.tr.citronix.dto.farm.FarmRequest;
 import ma.tr.citronix.dto.farm.FarmResponse;
 import ma.tr.citronix.entity.Farm;
-import ma.tr.citronix.exception.NotCompleteProcess;
+import ma.tr.citronix.exception.ProcessNotCompleted;
 import ma.tr.citronix.exception.NotFoundException;
 import ma.tr.citronix.mapper.FarmMapper;
 import ma.tr.citronix.repository.FarmRepository;
 import ma.tr.citronix.repository.FarmSearchRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,14 +25,14 @@ public class FarmServiceImpl implements FarmService {
     private final FarmSearchRepository farmSearchRepository;
     @Override
     @Transactional(readOnly = true)
-    public List<Farm> getAllFarms() {
-        return farmRepository.findAll();
+    public List<FarmResponse> getAllFarms() {
+        return farmRepository.findAll().stream().map(farmMapper::toResponse).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Farm getFarmById(Long id) {
-        return farmRepository.findById(id).orElseThrow(() -> new NotFoundException("Farm not found"));
+    public FarmResponse getFarmById(Long id) {
+        return  farmMapper.toResponse(farmRepository.findById(id).orElseThrow(() -> new NotFoundException("Farm not found")));
     }
 
     @Override
@@ -44,29 +42,29 @@ public class FarmServiceImpl implements FarmService {
             farmRepository.deleteById(id);
             return;
         }
-        throw new NotCompleteProcess("no Farm with this id");
+        throw new ProcessNotCompleted("no Farm with this id");
     }
 
     @Override
     @Transactional
-    public Farm addFarm(Farm farm) {
-        return farmRepository.save(farm);
+    public FarmResponse createFarm(FarmRequest farmRequest) {
+        Farm farm = farmMapper.toFarm(farmRequest);
+        return farmMapper.toResponse(farmRepository.save(farm));
     }
 
     @Override
     @Transactional
-    public Farm updateFarm(Long id, FarmRequest farmRequest) {
-        Farm existingFarm = farmRepository.findById(id).orElseThrow(() -> new NotCompleteProcess("Farm not found"));
+    public FarmResponse updateFarm(Long id, FarmRequest farmRequest) {
+        Farm existingFarm = farmRepository.findById(id).orElseThrow(() -> new ProcessNotCompleted("Farm not found"));
         Farm newFarm = farmMapper.toFarm(farmRequest);
         newFarm.setId(id);
-        newFarm.setCreationDate(existingFarm.getCreationDate());
-        return farmRepository.save(newFarm);
+        return farmMapper.toResponse(farmRepository.save(newFarm));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Farm> search(String name, String localisation, LocalDate date) {
+    public List<FarmResponse> search(String name, String localisation, LocalDate date) {
 
-        return farmSearchRepository.searchFarm(name, localisation, date);
+        return farmSearchRepository.searchFarm(name, localisation, date).stream().map(farmMapper::toResponse).toList();
     }
 }

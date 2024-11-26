@@ -25,14 +25,14 @@ public class ExceptionHandlerUtil {
         ), HttpStatus.NOT_FOUND);
 
     }
-    @ExceptionHandler(NotCompleteProcess.class)
-    public ResponseEntity<Map<String, Object>> handler(NotCompleteProcess ex, HttpServletRequest request) {
+    @ExceptionHandler(ProcessNotCompleted.class)
+    public ResponseEntity<Map<String, Object>> handler(ProcessNotCompleted ex, HttpServletRequest request) {
 
         return new ResponseEntity<>(ErrorResponseUtil.createErrorResponse(
                 ex.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 request.getRequestURI()
-        ), HttpStatus.NOT_FOUND);
+        ), HttpStatus.BAD_REQUEST);
 
     }
 

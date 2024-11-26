@@ -1,4 +1,4 @@
-package ma.tr.citronix.repository;
+package ma.tr.citronix.repository.impl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,6 +8,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import ma.tr.citronix.entity.Farm;
+import ma.tr.citronix.repository.FarmSearchRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,10 +16,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class FarmSearchImpl  implements FarmSearchRepository{
+public class FarmSearchImpl  implements FarmSearchRepository {
 
     @PersistenceContext
     EntityManager entityManager;
+
+
     @Override
     public List<Farm> searchFarm(String name, String location , LocalDate date) {
 

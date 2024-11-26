@@ -11,5 +11,6 @@ import org.mapstruct.Mapping;
 public interface FieldMapper {
     @Mapping(source = "farmId" , target = "farm.id")
     Field toField(FieldRequest fieldRequest);
+    @Mapping(source = "farm.name" , target = "farmName")
     FieldResponse toFieldResponse(Field field);
 }

@@ -9,6 +9,9 @@ import ma.tr.citronix.exception.NotFoundException;
 import ma.tr.citronix.mapper.FarmMapper;
 import ma.tr.citronix.repository.FarmRepository;
 import ma.tr.citronix.repository.FarmSearchRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +28,8 @@ public class FarmServiceImpl implements FarmService {
     private final FarmSearchRepository farmSearchRepository;
     @Override
     @Transactional(readOnly = true)
-    public List<FarmResponse> getAllFarms() {
-        return farmRepository.findAll().stream().map(farmMapper::toResponse).toList();
+    public Page<FarmResponse> getAllFarms(int page, int size) {
+        return farmRepository.findAll(PageRequest.of(page,size)).map(farmMapper::toResponse);
     }
 
     @Override

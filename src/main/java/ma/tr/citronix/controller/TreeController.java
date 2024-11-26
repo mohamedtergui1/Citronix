@@ -16,29 +16,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/trees")
 @RestController
-public class TreeController implements BaseController {
+public class TreeController  {
 
     private final TreeService treeService;
 
 
     @GetMapping
     public ResponseEntity<List<TreeResponse>> getTrees() {
-        return responseEntity(treeService.getAllTrees(), HttpStatus.OK);
+        return new ResponseEntity<>(treeService.getAllTrees(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TreeResponse> getTree(@PathVariable Long id) {
-        return responseEntity(treeService.getTreeById(id), HttpStatus.OK);
+        return new ResponseEntity<>(treeService.getTreeById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<TreeResponse> createTree(@RequestBody @Valid TreeRequest treeRequest) {
-        return responseEntity(treeService.createTree(treeRequest), HttpStatus.OK);
+        return new ResponseEntity<>(treeService.createTree(treeRequest), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TreeResponse> updateTree(@PathVariable Long id, @RequestBody @Valid TreeRequest treeRequest) {
-        return responseEntity(treeService.updateTree(id, treeRequest), HttpStatus.OK);
+        return new ResponseEntity<>(treeService.updateTree(id, treeRequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

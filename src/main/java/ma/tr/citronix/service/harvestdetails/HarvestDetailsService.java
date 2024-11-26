@@ -5,6 +5,6 @@ import ma.tr.citronix.dto.harvestdetails.HarvestDetailsResponse;
 import java.util.List;
 
 public interface HarvestDetailsService {
-    List<HarvestDetailsResponse> getHarvestDetailsBy(Long id);
+    List<HarvestDetailsResponse> getHarvestDetailsByTreeId(Long id);
 
 }

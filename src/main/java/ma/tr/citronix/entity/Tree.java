@@ -14,7 +14,6 @@ import java.time.Period;
 @Getter
 @Setter
 @Entity
-@Table(name = "tree")
 public class Tree {
 
     @Id
@@ -29,7 +28,7 @@ public class Tree {
     Field field;
 
 
-    public int calculateAge() {
+    private int calculateAge() {
         if (plantationDate == null) {
             return 0;
         }

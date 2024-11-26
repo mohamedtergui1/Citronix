@@ -1,10 +1,12 @@
 package ma.tr.citronix.dto.sale;
 
-import ma.tr.citronix.dto.harvest.HarvestRequest;
+
+import lombok.Builder;
 import ma.tr.citronix.dto.harvest.HarvestResponse;
 
 import java.time.LocalDate;
 
+@Builder
 public record SaleResponse(
         Long id,
         LocalDate date,

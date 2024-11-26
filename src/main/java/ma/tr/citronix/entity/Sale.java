@@ -27,7 +27,4 @@ public class Sale {
 
     private double quantity;
 
-    public double calculeRevenu() {
-        return quantity * unitPrice;
-    }
 }

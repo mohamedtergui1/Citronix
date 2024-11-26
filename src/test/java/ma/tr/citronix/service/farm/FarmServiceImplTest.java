@@ -13,6 +13,9 @@ import ma.tr.citronix.dto.farm.*;
 import ma.tr.citronix.repository.FarmSearchRepository;
 import ma.tr.citronix.repository.FarmRepository;
 import ma.tr.citronix.mapper.FarmMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,13 +52,8 @@ class FarmServiceImplTest {
         testDate = LocalDate.now();
 
 
-        farm = new Farm();
-        farm.setId(1L);
-        farm.setName("Test Farm");
-        farm.setLocation("Test Location");
-        farm.setArea(100.0);
-        farm.setCreationDate(testDate);
-        farm.setFields(new ArrayList<>());
+        farm = Farm.builder().id(1L).area(100.0).creationDate(testDate).fields(new ArrayList<>()).location("Test Location").name("Test Farm").build();
+
 
         // Setup test DTOs
         farmRequest = new FarmRequest("Test Farm", "Test Location", 100.0, testDate);
@@ -63,23 +61,8 @@ class FarmServiceImplTest {
     }
 
 
-    @Test
-    void getAllFarms_ShouldReturnListOfFarmResponses() {
-
-        List<Farm> farms = List.of(farm);
-        when(farmRepository.findAll()).thenReturn(farms);
-        when(farmMapper.toResponse(any(Farm.class))).thenReturn(farmResponse);
 
 
-        List<FarmResponse> result = farmService.getAllFarms();
-
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(farmResponse, result.get(0));
-        verify(farmRepository).findAll();
-        verify(farmMapper).toResponse(farm);
-    }
 
     @Test
     void getFarmById_WhenFarmExists_ShouldReturnFarmResponse() {
@@ -98,7 +81,35 @@ class FarmServiceImplTest {
         assertEquals(farmResponse.location(), result.location());
         assertEquals(farmResponse.area(), result.area());
         assertEquals(farmResponse.creationDate(), result.creationDate());
-        verify(farmRepository).findById(id);
+        verify(farmRepository,times(1)).findById(id);
+    }
+
+    @Test
+    void getAllFarms_ShouldReturnListOfFarmResponses() {
+
+
+        Farm farm = new Farm();
+
+        List<Farm> farms = List.of(farm);
+
+
+        Page<Farm> pagedFarms = new PageImpl<>(farms);
+
+
+        when(farmRepository.findAll(any(Pageable.class))).thenReturn(pagedFarms);
+        when(farmMapper.toResponse(any(Farm.class))).thenReturn(farmResponse);
+
+
+        Page<FarmResponse> result = farmService.getAllFarms(1, 10);
+
+
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals(farmResponse, result.getContent().get(0));
+
+
+        verify(farmRepository).findAll(any(Pageable.class));
+        verify(farmMapper).toResponse(farm);
     }
 
     @Test
@@ -237,4 +248,20 @@ class FarmServiceImplTest {
         verify(farmSearchRepository).searchFarm(name, location, date);
         verify(farmMapper, never()).toResponse(any());
     }
+    @Test
+    void test() {
+        Long id = 1L;
+        when(farmRepository.existsById(id)).thenReturn(false);
+
+
+        ProcessNotCompleted exception = assertThrows(ProcessNotCompleted.class, () -> {
+            farmService.deleteFarmById(id);
+        });
+
+
+        assertEquals("no Farm with this id", exception.getMessage());
+        verify(farmRepository,never()).deleteById(id);
+        verify(farmRepository,times(1)).existsById(id);
+    }
+
 }

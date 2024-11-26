@@ -50,12 +50,12 @@ public class HarvestServiceImpl implements HarvestService {
     @Transactional
     public HarvestResponse createHarvest(HarvestRequest harvestRequest) {
         Harvest harvest = harvestMapper.toHarvest(harvestRequest);
-
-        Field field = fieldRepository.findById(harvest.getField().getId()).orElseThrow(() -> new ProcessNotCompleted("field not found"));
+        Long fieldId = harvestRequest.getFieldId();
+        Field field = fieldRepository.findById(fieldId).orElseThrow(() -> new ProcessNotCompleted("field not found"));
         if (harvestRepository.countHarvestDetailsByFieldIdAndHarvestSeasonAndHarvestDateYear(harvestRequest.getFieldId(), harvestRequest.getSeason().name(), harvestRequest.getDate().getYear()) > 0) {
             throw new ProcessNotCompleted("this field already harvested in this season and year ");
         }
-        List<Tree> trees = treeRepository.findAllByFieldId(harvest.getField().getId());
+        List<Tree> trees = treeRepository.findAllByFieldId(fieldId);
         if (trees.isEmpty()) {
             throw new ProcessNotCompleted("no tree is found in this field");
         }
@@ -70,7 +70,7 @@ public class HarvestServiceImpl implements HarvestService {
         }
         harvestDetailsRepository.saveAll(harvestDetails);
         harvest.setQuantity(quantity);
-        harvest.setField(field);
+
         return harvestMapper.toHarvestResponse(harvestRepository.save(harvest));
 
     }

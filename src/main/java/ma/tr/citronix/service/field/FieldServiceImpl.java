@@ -44,7 +44,7 @@ public class FieldServiceImpl implements FieldService {
     public void deleteFieldById(Long id) {
 
         if (!fieldRepository.existsById(id)) {
-            throw new NotFoundException("Field not found");
+            throw new ProcessNotCompleted("Field not found");
         }
         fieldRepository.deleteById(id);
 
@@ -55,7 +55,7 @@ public class FieldServiceImpl implements FieldService {
     public FieldResponse createField(FieldRequest fieldRequest) {
         Field field = fieldMapper.toField(fieldRequest);
         Farm farm = farmRepository.findById(field.getFarm().getId()).orElseThrow(() -> new ProcessNotCompleted("Farm not found"));
-        if (fieldRepository.getCountByFarmId(field.getId()) >= 10) {
+        if (fieldRepository.getCountByFarmId(farm.getId()) >= 10) {
             throw new ProcessNotCompleted("the count of fields over 10");
         }
         if (farm.getArea() < 2 * field.getArea()) {

@@ -3,6 +3,7 @@ package ma.tr.citronix.dto.harvest;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import ma.tr.citronix.enums.Season;
 import ma.tr.citronix.validation.EnumValidate;

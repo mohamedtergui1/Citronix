@@ -12,6 +12,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @ToString(exclude = "fields")
 @Table(name = "farms")

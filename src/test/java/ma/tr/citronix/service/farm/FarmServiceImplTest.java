@@ -52,13 +52,8 @@ class FarmServiceImplTest {
         testDate = LocalDate.now();
 
 
-        farm = new Farm();
-        farm.setId(1L);
-        farm.setName("Test Farm");
-        farm.setLocation("Test Location");
-        farm.setArea(100.0);
-        farm.setCreationDate(testDate);
-        farm.setFields(new ArrayList<>());
+        farm = Farm.builder().id(1L).area(100.0).creationDate(testDate).fields(new ArrayList<>()).location("Test Location").name("Test Farm").build();
+
 
         // Setup test DTOs
         farmRequest = new FarmRequest("Test Farm", "Test Location", 100.0, testDate);
@@ -66,11 +61,34 @@ class FarmServiceImplTest {
     }
 
 
+
+
+
+    @Test
+    void getFarmById_WhenFarmExists_ShouldReturnFarmResponse() {
+
+        Long id = 1L;
+        when(farmRepository.findById(id)).thenReturn(Optional.of(farm));
+        when(farmMapper.toResponse(farm)).thenReturn(farmResponse);
+
+
+        FarmResponse result = farmService.getFarmById(id);
+
+
+        assertNotNull(result);
+        assertEquals(farmResponse.id(), result.id());
+        assertEquals(farmResponse.name(), result.name());
+        assertEquals(farmResponse.location(), result.location());
+        assertEquals(farmResponse.area(), result.area());
+        assertEquals(farmResponse.creationDate(), result.creationDate());
+        verify(farmRepository,times(1)).findById(id);
+    }
+
     @Test
     void getAllFarms_ShouldReturnListOfFarmResponses() {
 
-        // Mock data
-        Farm farm = new Farm(); // Assuming a valid Farm object
+
+        Farm farm = new Farm();
 
         List<Farm> farms = List.of(farm);
 
@@ -92,27 +110,6 @@ class FarmServiceImplTest {
 
         verify(farmRepository).findAll(any(Pageable.class));
         verify(farmMapper).toResponse(farm);
-    }
-
-
-    @Test
-    void getFarmById_WhenFarmExists_ShouldReturnFarmResponse() {
-
-        Long id = 1L;
-        when(farmRepository.findById(id)).thenReturn(Optional.of(farm));
-        when(farmMapper.toResponse(farm)).thenReturn(farmResponse);
-
-
-        FarmResponse result = farmService.getFarmById(id);
-
-
-        assertNotNull(result);
-        assertEquals(farmResponse.id(), result.id());
-        assertEquals(farmResponse.name(), result.name());
-        assertEquals(farmResponse.location(), result.location());
-        assertEquals(farmResponse.area(), result.area());
-        assertEquals(farmResponse.creationDate(), result.creationDate());
-        verify(farmRepository).findById(id);
     }
 
     @Test
@@ -251,4 +248,20 @@ class FarmServiceImplTest {
         verify(farmSearchRepository).searchFarm(name, location, date);
         verify(farmMapper, never()).toResponse(any());
     }
+    @Test
+    void test() {
+        Long id = 1L;
+        when(farmRepository.existsById(id)).thenReturn(false);
+
+
+        ProcessNotCompleted exception = assertThrows(ProcessNotCompleted.class, () -> {
+            farmService.deleteFarmById(id);
+        });
+
+
+        assertEquals("no Farm with this id", exception.getMessage());
+        verify(farmRepository,never()).deleteById(id);
+        verify(farmRepository,times(1)).existsById(id);
+    }
+
 }

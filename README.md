@@ -40,7 +40,7 @@ Citronix is a comprehensive Spring Boot application designed to manage lemon far
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/[your-username]/citronix.git
+   git clone https://github.com/mohamedtergui1/Citronix.git
    cd citronix
    ```
 
@@ -56,7 +56,7 @@ Citronix is a comprehensive Spring Boot application designed to manage lemon far
 
 4. Access the application:
    - Base URL: `http://localhost:8080`
-   - Swagger UI (if configured): `http://localhost:8080/swagger-ui.html`
+   - Swagger UI : `http://localhost:8080/swagger-ui.html`
 
 ## Database Preparation
 

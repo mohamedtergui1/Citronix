@@ -29,7 +29,7 @@
     <properties>
         <sonar.projectKey>Citronix</sonar.projectKey>
         <sonar.projectName>Citronix</sonar.projectName>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.host.url>http://host.docker.internal:9000</sonar.host.url>
         <sonar.login>sqa_d44f681e9e794b0e4b79ad9a9e07674eab04de55</sonar.login>
         <java.version>17</java.version>
     </properties>

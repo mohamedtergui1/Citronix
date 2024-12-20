@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_REPOSITORY = "https://github.com/mohamedtergui1/Citronix.git"
+        BRANCH = 'dev'
+    }
+
+    stages {
+        stage('Environment Check') {
+            steps {
+                script {
+                    echo "Checking environment setup..."
+                    sh 'java -version'
+                    sh 'mvn -version' // Ensure Maven is available
+                }
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                echo "Cloning repository from ${GIT_REPOSITORY}..."
+                git branch: "${BRANCH}", url: "${GIT_REPOSITORY}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building project..."
+                script {
+                    sh './mvn package -DskipTests' // Adjust for your build tool, skip tests to speed up build
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+                script {
+                    sh './mvn test' // Run tests using Maven (or adjust based on your tool)
+                }
+            }
+        }
+
+        stage('Static Analysis') {
+            steps {
+                echo "Running static analysis with SonarQube..."
+                script {
+                    withSonarQubeEnv('SonarQube') { // Assuming you have SonarQube setup in Jenkins
+                        sh './mvn clean verify sonar:sonar' // Trigger SonarQube analysis
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up and archiving artifacts...'
+            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            junit '**/target/surefire-reports/*.xml' // Archive test results
+            jacoco execPattern: 'target/jacoco.exec' // Archive coverage results if needed
+        }
+
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+    }
+}

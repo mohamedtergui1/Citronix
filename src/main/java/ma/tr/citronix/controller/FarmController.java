@@ -58,9 +58,9 @@ public class FarmController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFarm(@PathVariable Long id) {
+    public ResponseEntity<String> deleteFarm(@PathVariable Long id) {
         farmService.deleteFarmById(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>("farm deleted", HttpStatus.OK);
     }
 
     @GetMapping("/search")

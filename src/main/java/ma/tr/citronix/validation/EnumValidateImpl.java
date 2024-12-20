@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public class EnumValidateImpl implements ConstraintValidator<EnumValidate, String> {
     private Enum<?>[] enumValues;
+
     @Override
     public void initialize(EnumValidate constraintAnnotation) {
         this.enumValues = constraintAnnotation.enumClass().getEnumConstants();

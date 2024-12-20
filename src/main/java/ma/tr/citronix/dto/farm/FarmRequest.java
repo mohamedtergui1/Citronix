@@ -15,7 +15,7 @@ public record FarmRequest (
         @Size(min = 10, max = 255)
         String location,
 
-        @NotNull
+
         @Min(2000)
         double area,
 

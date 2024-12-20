@@ -13,4 +13,6 @@ public interface TreeRepository extends JpaRepository<Tree, Long> {
         @Query("SELECT COUNT(t) FROM Tree t WHERE t.field.id = :fieldId")
         Long getCountByFieldId(Long fieldId);
         List<Tree> findAllByFieldId(Long fieldId );
+        //@Query(value ="select t.* from  tree t join fields f on  f.id = t.field_id where f.farm_id = :Idfarm " , nativeQuery = true)
+        List<Tree> findByFieldFarmId(Long IdFarm);
 }

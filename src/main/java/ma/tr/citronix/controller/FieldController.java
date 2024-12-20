@@ -32,16 +32,17 @@ public class FieldController {
 
     @PostMapping
     public ResponseEntity<FieldResponse> createField(@RequestBody @Valid FieldRequest fieldRequest) {
-        return new ResponseEntity<>( fieldService.createField(fieldRequest), HttpStatus.CREATED);
+        return new ResponseEntity<>(fieldService.createField(fieldRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<FieldResponse> updateField(@PathVariable Long id, @RequestBody @Valid FieldRequest fieldRequest) {
-        return new ResponseEntity<>( fieldService.updateField(id, fieldRequest), HttpStatus.OK);
+        return new ResponseEntity<>(fieldService.updateField(id, fieldRequest), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteField(@PathVariable Long id) {
         fieldService.deleteFieldById(id);
-        return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("field deleted", HttpStatus.OK);
     }
 }

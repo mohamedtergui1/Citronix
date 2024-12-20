@@ -6,8 +6,8 @@ import lombok.Builder;
 
 @Builder
 public record FieldRequest(
-   @NotNull Long farmId,
-   @Min(1000) double area
-)  {
+        @NotNull Long farmId,
+        @Min(1000) double area
+) {
 
 }

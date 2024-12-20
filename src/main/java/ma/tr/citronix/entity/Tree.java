@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +28,8 @@ public class Tree {
     @JoinColumn(name = "field_id")
     Field field;
 
+    @OneToMany(mappedBy = "tree")
+    List<HarvestDetails> harvestDetails;
 
     private int calculateAge() {
         if (plantationDate == null) {

@@ -1,5 +1,7 @@
 package ma.tr.citronix.mapper;
 
+import ma.tr.citronix.dto.TreeResponseNew;
+import ma.tr.citronix.dto.sale.SaleResponse;
 import ma.tr.citronix.dto.tree.TreeRequest;
 import ma.tr.citronix.dto.tree.TreeResponse;
 import ma.tr.citronix.entity.Tree;
@@ -13,4 +15,10 @@ public interface TreeMapper {
     @Mapping(source = "field.farm.name" , target = "farmName" )
     @Mapping(source = "field.id" , target = "fieldId" )
     TreeResponse toTreeResponse(Tree tree);
+
+
+
+    TreeResponseNew toTreeResponseNew(Tree tree);
+
+
 }

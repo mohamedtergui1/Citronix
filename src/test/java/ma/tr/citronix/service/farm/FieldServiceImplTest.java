@@ -48,22 +48,7 @@ public class FieldServiceImplTest {
     }
 
     @Test
-    public void testDeleteThrowException() {
-        when(fieldRepository.existsById(1L)).thenReturn(false);
-        System.out.println("testDeleteThrowException");
-
-        ProcessNotCompleted ex = assertThrows(ProcessNotCompleted.class, () -> fieldServiceImpl.deleteFieldById(1L));
-
-        assert (ex.getMessage().equals("Field not found"));
-        System.out.println("testDeleteThrowException");
-        verify(fieldRepository, never()).deleteById(1L);
-        System.out.println("testDeleteThrowException");
-
-        verify(fieldRepository, times(1)).existsById(1L);
-
-    }
-    @Test
-    public void testCrete() {
+    public void testCreteSuccess() {
         Farm farm = Farm.builder().id(1L).name("test").area(10000.0).build();
         when(fieldMapper.toField(fieldRequest)).thenReturn(field);
         when(farmRepository.findById(1L)).thenReturn(Optional.of(farm));

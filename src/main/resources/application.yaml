@@ -1,7 +1,6 @@
 spring:
   application:
     name: Citronix
-
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/Citronix
@@ -27,4 +26,5 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
+server:
+  port: 8181

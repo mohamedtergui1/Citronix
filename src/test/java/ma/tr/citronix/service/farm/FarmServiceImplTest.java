@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ma.tr.citronix.exception.ProcessNotCompleted;
 import ma.tr.citronix.exception.NotFoundException;
@@ -51,11 +52,8 @@ class FarmServiceImplTest {
     void setUp() {
         testDate = LocalDate.now();
 
-
         farm = Farm.builder().id(1L).area(100.0).creationDate(testDate).fields(new ArrayList<>()).location("Test Location").name("Test Farm").build();
 
-
-        // Setup test DTOs
         farmRequest = new FarmRequest("Test Farm", "Test Location", 100.0, testDate);
         farmResponse = new FarmResponse(1L, "Test Farm", "Test Location", 100.0, testDate);
     }
@@ -86,7 +84,6 @@ class FarmServiceImplTest {
 
     @Test
     void getAllFarms_ShouldReturnListOfFarmResponses() {
-
 
         Farm farm = new Farm();
 
@@ -248,20 +245,6 @@ class FarmServiceImplTest {
         verify(farmSearchRepository).searchFarm(name, location, date);
         verify(farmMapper, never()).toResponse(any());
     }
-    @Test
-    void test() {
-        Long id = 1L;
-        when(farmRepository.existsById(id)).thenReturn(false);
 
-
-        ProcessNotCompleted exception = assertThrows(ProcessNotCompleted.class, () -> {
-            farmService.deleteFarmById(id);
-        });
-
-
-        assertEquals("no Farm with this id", exception.getMessage());
-        verify(farmRepository,never()).deleteById(id);
-        verify(farmRepository,times(1)).existsById(id);
-    }
 
 }

@@ -1,8 +1,10 @@
 package ma.tr.citronix.mapper;
 
+import ma.tr.citronix.dto.TreeResponseNew;
 import ma.tr.citronix.dto.harvest.HarvestRequest;
 import ma.tr.citronix.dto.harvest.HarvestResponse;
 import ma.tr.citronix.entity.Harvest;
+import ma.tr.citronix.entity.Tree;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,4 +14,6 @@ public interface HarvestMapper {
     Harvest toHarvest(HarvestRequest harvest);
 
     HarvestResponse toHarvestResponse(Harvest harvest);
+
+
 }
